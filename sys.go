@@ -4,6 +4,7 @@ package vault_client //nolint:revive // Why: We're using - in the name
 import (
 	"context"
 	"net/http"
+	"path"
 )
 
 // InitializeResponse is the response from Initialize()
@@ -68,4 +69,29 @@ func (c *Client) Health(ctx context.Context) (*HealthResponse, error) {
 		return nil, err
 	}
 	return &resp, nil
+}
+
+// CreateAuthMethodOptions are options for creating an auth method with CreateAuthMethod
+type CreateAuthMethodOptions struct {
+	// Path is the path that this auth method should be mounted on.
+	// If not set, type is used.
+	Path string `json:"-"`
+
+	// Description is an optional description of this auth method, for humans
+	Description string `json:"description,omitempty"`
+
+	// Type is the type of auth method to create. Required.
+	// Options: https://www.vaultproject.io/api-docs/system/auth#type
+	Type string `json:"type,omitempty"`
+
+	// Config is auth method specific options, see: https://www.vaultproject.io/api-docs/system/auth#config
+	Config map[string]interface{} `json:"config,omitempty"`
+}
+
+// CreateAuthMethod creates a new auth method on the given path
+func (c *Client) CreateAuthMethod(ctx context.Context, opts *CreateAuthMethodOptions) error {
+	if opts.Path == "" {
+		opts.Path = opts.Type
+	}
+	return c.doRequest(ctx, http.MethodPost, path.Join("sys/auth", opts.Path), opts, nil)
 }

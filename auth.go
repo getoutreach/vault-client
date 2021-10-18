@@ -13,4 +13,8 @@ import (
 type AuthMethod interface {
 	// GetToken returns the token to use when talking to Vault
 	GetToken(ctx context.Context) (token cfg.SecretData, expiresAt time.Time, err error)
+
+	// Options provides the current client options, useful for auth methods
+	// that need an underlying vault client to function.
+	Options(*Options)
 }

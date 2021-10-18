@@ -7,6 +7,8 @@ require (
 	github.com/getoutreach/gobox v1.18.1
 	github.com/google/go-cmp v0.5.6
 	github.com/hashicorp/vault v1.8.4
+	github.com/hashicorp/vault/sdk v0.2.2-0.20211005222123-93e045565e4a
+	github.com/imdario/mergo v0.3.12
 	github.com/mitchellh/mapstructure v1.3.3
 	github.com/pkg/errors v0.9.1
 )
@@ -92,13 +94,11 @@ require (
 	github.com/hashicorp/raft-boltdb/v2 v2.0.0-20210421194847-a7e34179d62c // indirect
 	github.com/hashicorp/raft-snapshot v1.0.3 // indirect
 	github.com/hashicorp/vault/api v1.1.2-0.20210713235431-1fc8af4c041f // indirect
-	github.com/hashicorp/vault/sdk v0.2.2-0.20211005222123-93e045565e4a // indirect
 	github.com/hashicorp/vic v1.5.1-0.20190403131502-bbfe86ec9443 // indirect
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
 	github.com/honeycombio/beeline-go v1.2.0 // indirect
 	github.com/honeycombio/libhoney-go v1.15.4 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
-	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/jefferai/isbadcipher v0.0.0-20190226160619-51d2077c035f // indirect
 	github.com/jefferai/jsonx v1.0.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect

@@ -5,6 +5,7 @@ import (
 	"os" // Options is the options used by the New() client function
 
 	"github.com/getoutreach/gobox/pkg/cfg"
+	"github.com/imdario/mergo"
 )
 
 type Options struct {
@@ -55,5 +56,12 @@ func WithTokenAuth(token cfg.SecretData) Opts {
 func WithAddress(hostname string) Opts {
 	return func(opts *Options) {
 		opts.Host = hostname
+	}
+}
+
+// WithOptions combines a provided options with the client's
+func WithOptions(oldO *Options) Opts {
+	return func(newO *Options) {
+		mergo.MergeWithOverwrite(newO, oldO) //nolint:errcheck // Why: sig doesn't allow
 	}
 }
