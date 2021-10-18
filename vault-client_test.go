@@ -2,6 +2,7 @@
 package vault_client //nolint:revive // Why: We're using - in the name
 
 import (
+	"context"
 	"testing"
 
 	"github.com/getoutreach/vault-client/pkg/vaulttest"
@@ -14,4 +15,14 @@ func createTestVaultServer(t *testing.T, leaveUninitialized bool) (cli *Client, 
 
 	host, token, cleanup := vaulttest.NewInMemoryServer(t, leaveUninitialized)
 	return New(WithAddress(host), WithTokenAuth(token)), cleanup
+}
+
+func TestClient_Failure(t *testing.T) {
+	vc, cleanup := createTestVaultServer(t, false)
+	defer cleanup()
+
+	_, err := vc.LookupToken(context.Background(), "fake-token")
+	if err == nil {
+		t.Error("expected invalid token lookup to fail")
+	}
 }
