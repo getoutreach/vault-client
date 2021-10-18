@@ -1,4 +1,6 @@
 // Copyright 2021 Outreach Corporation. All Rights Reserved.
+//
+// Description: Stores functions/types for options on the Vault client
 package vault_client //nolint:revive // Why: We're using - in the name
 
 import (
@@ -8,6 +10,7 @@ import (
 	"github.com/imdario/mergo"
 )
 
+// Options are options associated with a Vault client
 type Options struct {
 	// am is the auth method to use for this client, this is used
 	// by the auth_transport to transparently/automatically refresh
@@ -18,8 +21,7 @@ type Options struct {
 	Host string
 }
 
-// AuthMethod is an authentication method that can be used
-// by a Vault client.
+// Opts is an functional option for use with New()
 type Opts func(*Options)
 
 // WithEnv reads configuration from environment variables

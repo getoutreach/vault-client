@@ -1,4 +1,6 @@
 // Copyright 2021 Outreach Corporation. All Rights Reserved.
+//
+// Description: Stores functions to interact with basic /auth/token endpoints
 package vault_client //nolint:revive // Why: We're using - in the name
 
 import (
@@ -8,8 +10,6 @@ import (
 
 	"github.com/getoutreach/gobox/pkg/cfg"
 )
-
-var _ AuthMethod = &TokenAuthMethod{}
 
 // TokenAuthMethod implements a AuthMethod backed by a static authentication token
 type TokenAuthMethod struct {

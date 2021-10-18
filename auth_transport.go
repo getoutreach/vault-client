@@ -1,4 +1,6 @@
 // Copyright 2021 Outreach Corporation. All Rights Reserved.
+//
+// Description: Implements a http.Transport for authentication
 package vault_client //nolint:revive // Why: We're using - in the name
 
 import (
@@ -22,8 +24,6 @@ type transport struct {
 	token     cfg.SecretData
 	expiresAt time.Time
 }
-
-var _ http.RoundTripper = &transport{}
 
 // New returns a Transport that automatically refreshes Vault authentication
 // and includes it.

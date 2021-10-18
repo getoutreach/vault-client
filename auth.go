@@ -1,4 +1,6 @@
 // Copyright 2021 Outreach Corporation. All Rights Reserved.
+//
+// Description: Stores functions to interact with basic /auth endpoints
 package vault_client //nolint:revive // Why: We're using - in the name
 
 import (

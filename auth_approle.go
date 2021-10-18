@@ -1,4 +1,6 @@
 // Copyright 2021 Outreach Corporation. All Rights Reserved.
+//
+// Description: Stores functions to interact with basic /auth/approle endpoints
 package vault_client //nolint:revive // Why: We're using - in the name
 
 import (
@@ -9,8 +11,6 @@ import (
 
 	"github.com/getoutreach/gobox/pkg/cfg"
 )
-
-var _ AuthMethod = &ApproleAuthMethod{}
 
 // ApproleAuthMethod implements a AuthMethod backed by an approle
 type ApproleAuthMethod struct {
