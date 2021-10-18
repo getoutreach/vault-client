@@ -1,7 +1,16 @@
+// Copyright 2021 Outreach Corporation. All Rights Reserved.
 package vault_client //nolint:revive // Why: We're using - in the name
 
-// Options is the options used by the New() client function
+import (
+	"os" // Options is the options used by the New() client function
+
+	"github.com/getoutreach/gobox/pkg/cfg"
+)
+
 type Options struct {
+	// am is the auth method to use for this client, this is used
+	// by the auth_transport to transparently/automatically refresh
+	// authentication
 	am AuthMethod
 
 	// Host is the host of the Vault instance
@@ -12,9 +21,39 @@ type Options struct {
 // by a Vault client.
 type Opts func(*Options)
 
-// FromEnv reads configuration from environment variables
+// WithEnv reads configuration from environment variables
 // and returns an Options based off of the values
-func FromEnv(opts *Options) {
-	// TODO(jaredallard): Implement
-	return
+func WithEnv(opts *Options) {
+	if roleID, ok := os.LookupEnv("VAULT_ROLE_ID"); ok {
+		WithApproleAuth(cfg.SecretData(roleID), cfg.SecretData(os.Getenv("VAULT_SECRET_ID")))(opts)
+	}
+
+	if host, ok := os.LookupEnv("VAULT_ADDR"); ok {
+		WithAddress(host)(opts)
+	}
+
+	if token, ok := os.LookupEnv("VAULT_TOKEN"); ok {
+		WithTokenAuth(cfg.SecretData(token))(opts)
+	}
+}
+
+// WithApproleAuth sets up approle authentication on a Client
+func WithApproleAuth(roleID, secretID cfg.SecretData) Opts {
+	return func(opts *Options) {
+		opts.am = NewApproleAuthMethod(roleID, secretID)
+	}
+}
+
+// WithTokenAuth sets up token authentication on a Client
+func WithTokenAuth(token cfg.SecretData) Opts {
+	return func(opts *Options) {
+		opts.am = NewTokenAuthMethod(token)
+	}
+}
+
+// WithAddress sets the host to use when talking to Vault on a Client
+func WithAddress(hostname string) Opts {
+	return func(opts *Options) {
+		opts.Host = hostname
+	}
 }

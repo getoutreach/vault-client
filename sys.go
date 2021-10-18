@@ -1,3 +1,4 @@
+// Copyright 2021 Outreach Corporation. All Rights Reserved.
 package vault_client //nolint:revive // Why: We're using - in the name
 
 import (
@@ -38,9 +39,33 @@ type InitializeOptions struct {
 
 // Initialize initializes a Vault cluster
 func (c *Client) Initialize(ctx context.Context, opts *InitializeOptions) (*InitializeResponse, error) {
-	var resp *InitializeResponse
-	if err := c.doRequest(ctx, http.MethodPut, "sys/init", opts, resp); err != nil {
+	var resp InitializeResponse
+	if err := c.doRequest(ctx, http.MethodPut, "sys/init", opts, &resp); err != nil {
 		return nil, err
 	}
-	return resp, nil
+	return &resp, nil
+}
+
+// HealthResponse is a response returned by Health.
+// Docs: https://www.vaultproject.io/api/system/health#sample-response
+type HealthResponse struct {
+	Initialized         bool   `json:"initialized"`
+	Sealed              bool   `json:"sealed"`
+	Standby             bool   `json:"standby"`
+	PerformanceStandby  bool   `json:"performance_standby"`
+	ReplicationPerfMode string `json:"replication_perf_mode"`
+	ReplicationDrMode   string `json:"replication_dr_mode"`
+	ServerTimeUtc       int    `json:"server_time_utc"`
+	Version             string `json:"version"`
+	ClusterName         string `json:"cluster_name"`
+	ClusterID           string `json:"cluster_id"`
+}
+
+// Health returns the current health, or "status", of a Vault cluster
+func (c *Client) Health(ctx context.Context) (*HealthResponse, error) {
+	var resp HealthResponse
+	if err := c.doRequest(ctx, http.MethodGet, "sys/health", nil, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
 }
