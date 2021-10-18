@@ -2,4 +2,4 @@
 // Description: Implements a Vault client for use with Vault.
 //
 // Package vault_client implements a Vault client for use with Vault
-package vault_client //nolint:revive,doculint // Why: we use a - in the name
+package vault_client //nolint // Why: we use a - in the name
