@@ -50,7 +50,7 @@ func TestClient_Health(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			c, cleanup := createTestVaultServer(t)
+			c, cleanup := createTestVaultServer(t, false)
 			defer cleanup()
 
 			oGot, err := c.Health(tt.args.ctx)
@@ -67,5 +67,47 @@ func TestClient_Health(t *testing.T) {
 				t.Errorf("Client.Health(): %s", diff)
 			}
 		})
+	}
+}
+
+func TestClient_Initialize(t *testing.T) {
+	vc, cleanupFn := createTestVaultServer(t, true)
+	defer cleanupFn()
+
+	ctx := context.Background()
+
+	resp, err := vc.Initialize(ctx, &InitializeOptions{
+		SecretShares:    10,
+		SecretThreshold: 10,
+	})
+	if err != nil {
+		t.Errorf("Failed to initialize vault: Initialize() = %v", err)
+		return
+	}
+
+	// convert to map[string]interface for cmp.Diff
+	got := make(map[string]interface{})
+	mapstructure.Decode(resp, &got)
+
+	want := map[string]interface{}{
+		// check that keys is a []string and len(10)
+		"Keys": differs.Customf(func(o interface{}) bool {
+			v, ok := o.([]string)
+			if !ok {
+				return false
+			}
+
+			return len(v) == 10
+		}),
+		"RecoveryKeys": differs.Customf(func(o interface{}) bool {
+			_, ok := o.([]string)
+			return ok
+		}),
+		"RootToken": differs.AnyString(),
+	}
+
+	if diff := cmp.Diff(want, got, differs.Custom()); diff != "" {
+		t.Errorf("Initialize(): %s", diff)
+		return
 	}
 }

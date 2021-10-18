@@ -9,9 +9,9 @@ import (
 
 // createTestVaultSever creates a Vault server and returns a
 // client hooked up to use it. Call the returned function to cleanup.
-func createTestVaultServer(t *testing.T) (cli *Client, cleanupFn func()) {
+func createTestVaultServer(t *testing.T, leaveUninitialized bool) (cli *Client, cleanupFn func()) {
 	t.Helper()
 
-	host, token, cleanup := vaulttest.NewInMemoryServer(t)
+	host, token, cleanup := vaulttest.NewInMemoryServer(t, leaveUninitialized)
 	return New(WithAddress(host), WithTokenAuth(token)), cleanup
 }

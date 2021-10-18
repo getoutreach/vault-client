@@ -14,7 +14,7 @@ path "auth/token/lookup" {
 `
 
 func TestClient_ApproleLogin(t *testing.T) {
-	vc, cleanupFn := createTestVaultServer(t)
+	vc, cleanupFn := createTestVaultServer(t, false)
 	defer cleanupFn()
 
 	ctx := context.Background()

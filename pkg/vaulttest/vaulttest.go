@@ -16,18 +16,26 @@ import (
 
 // NewInMemoryServer creates a new in-memory server with expected configuration
 // e.g. approles being enabled.
-func NewInMemoryServer(t *testing.T) (host string, token cfg.SecretData, cleanup func()) {
+func NewInMemoryServer(t *testing.T, leaveUninitialized bool) (host string, token cfg.SecretData, cleanup func()) {
 	t.Helper()
 
-	core, _, rookToken := vault.TestCoreUnsealedWithConfig(t, &vault.CoreConfig{
+	conf := &vault.CoreConfig{
 		CredentialBackends: map[string]logical.Factory{
 			"approle": approle.Factory,
 		},
-	})
-	vault.TestWaitActive(t, core)
+	}
+
+	var rootToken string
+	var core *vault.Core
+	if leaveUninitialized {
+		core = vault.TestCoreWithConfig(t, conf)
+	} else {
+		core, _, rootToken = vault.TestCoreUnsealedWithConfig(t, conf)
+		vault.TestWaitActive(t, core)
+	}
 
 	ln, addr := vaulthttp.TestServer(t, core)
-	return addr, cfg.SecretData(rookToken), func() {
+	return addr, cfg.SecretData(rootToken), func() {
 		ln.Close()
 	}
 }
