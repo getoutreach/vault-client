@@ -3,7 +3,6 @@ module github.com/getoutreach/vault-client
 go 1.17
 
 require (
-	github.com/davecgh/go-spew v1.1.1
 	github.com/getoutreach/gobox v1.18.1
 	github.com/google/go-cmp v0.5.6
 	github.com/hashicorp/vault v1.8.4
@@ -45,6 +44,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
 	github.com/circonus-labs/circonus-gometrics v2.3.1+incompatible // indirect
 	github.com/circonus-labs/circonusllhist v0.1.3 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/denverdino/aliyungo v0.0.0-20170926055100-d3308649c661 // indirect
 	github.com/digitalocean/godo v1.7.5 // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
