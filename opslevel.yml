@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://www.opslevel.com/opslevel.schema.yml
+version: 1
+service:
+  name: vault-client
+  ###Block(serviceMetadata)
+  lifecycle: in_development
+  tier: tier_2
+  tools:
+   - name: PagerDuty
+     category: incidents
+     url: https://outreach.pagerduty.com/schedules#PGX9KZV
+     environment: Production
+  ###EndBlock(serviceMetadata)
+  product: Outreach
+  owner: cia_dev-tooling
+  language: Golang
+  framework: bootstrap
+  description: Go Client for Vault
+  aliases:
+    - vault-client
+  tags:
+    - key: repo
+      value: vault-client
+    - key: reporting_team
+      value: cia-dev-tooling
+    - key: app
+      value: vault-client
+    - key: name
+      value: vault-client
+    - key: simple
+      value: "true"
+    - key: library
+      value: "true"
+  repositories:
+    - name: getoutreach/vault-client
+      path: "/"
+      provider: github
