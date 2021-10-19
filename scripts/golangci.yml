@@ -1,5 +1,5 @@
 lintroller:
-  tier: bronze
+  tier: platinum
 linters-settings:
   errcheck:
     check-blank: true

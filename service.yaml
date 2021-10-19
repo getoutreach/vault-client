@@ -3,6 +3,6 @@ reportingTeam: cia-dev-tooling
 description: Go Client for Vault
 slack: dev-tooling-notifications
 library: true
-lintroller: bronze
+lintroller: platinum
 versions:
   go: 1.16.9
