@@ -6,10 +6,10 @@ service:
   lifecycle: in_development
   tier: tier_2
   tools:
-   - name: PagerDuty
-     category: incidents
-     url: https://outreach.pagerduty.com/schedules#PGX9KZV
-     environment: Production
+    - name: PagerDuty
+      category: incidents
+      url: https://outreach.pagerduty.com/schedules#PGX9KZV
+      environment: Production
   ###EndBlock(serviceMetadata)
   product: Outreach
   owner: cia_dev-tooling
