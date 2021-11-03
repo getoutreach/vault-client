@@ -111,3 +111,20 @@ func TestClient_Initialize(t *testing.T) {
 		return
 	}
 }
+
+func TestClient_CreateEngine(t *testing.T) {
+	vc, cleanupFn := createTestVaultServer(t, false)
+	defer cleanupFn()
+
+	ctx := context.Background()
+
+	// create the secret engine
+	if err := vc.CreateEngine(ctx, "deploy", &CreateEngineOptions{
+		Type: "kv",
+		Options: map[string]interface{}{
+			"version": 2,
+		},
+	}); err != nil {
+		t.Errorf("Failed to create a KV2 engine: CreateEngine() = %v", err)
+	}
+}

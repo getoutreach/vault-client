@@ -97,3 +97,24 @@ func (c *Client) CreateAuthMethod(ctx context.Context, opts *CreateAuthMethodOpt
 	}
 	return c.doRequest(ctx, http.MethodPost, path.Join("sys/auth", opts.Path), opts, nil)
 }
+
+// CreateEngineOptions are options to use when creating a new engine (sometimes called a mount)
+type CreateEngineOptions struct {
+	// Description is an optional description of this auth method, for humans
+	Description string `json:"description,omitempty"`
+
+	// Type is the type of engine to create. Required.
+	// Options: https://www.vaultproject.io/api-docs/system/mounts#type
+	Type string `json:"type,omitempty"`
+
+	// Config is auth method specific options, see: https://www.vaultproject.io/api-docs/system/mounts#config
+	Config map[string]interface{} `json:"config,omitempty"`
+
+	// Options are options specific to the given engine, see: https://www.vaultproject.io/api-docs/system/mounts#options
+	Options map[string]interface{} `json:"options,omitempty"`
+}
+
+// CreatEngine creates a new engine (mount) in Vault
+func (c *Client) CreateEngine(ctx context.Context, mountPath string, opts *CreateEngineOptions) error {
+	return c.doRequest(ctx, http.MethodPost, path.Join("sys/mounts", mountPath), opts, nil)
+}

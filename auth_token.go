@@ -31,16 +31,16 @@ func (*TokenAuthMethod) Options(*Options) {}
 // LookupTokenResponse is the response returned by LookupToken, docs:
 // https://www.vaultproject.io/api/auth/token#sample-response-2
 type LookupTokenResponse struct {
-	Accessor         string   `json:"accessor"`
-	CreationTime     int      `json:"creation_time"`
-	CreationTTL      int      `json:"creation_ttl"`
-	DisplayName      string   `json:"display_name"`
-	EntityID         string   `json:"entity_id"`
-	ExpireTime       string   `json:"expire_time"`
-	ExplicitMaxTTL   int      `json:"explicit_max_ttl"`
-	ID               string   `json:"id"`
-	IdentityPolicies []string `json:"identity_policies"`
-	IssueTime        string   `json:"issue_time"`
+	Accessor         string    `json:"accessor"`
+	CreationTime     int       `json:"creation_time"`
+	CreationTTL      int       `json:"creation_ttl"`
+	DisplayName      string    `json:"display_name"`
+	EntityID         string    `json:"entity_id"`
+	ExpireTime       time.Time `json:"expire_time"`
+	ExplicitMaxTTL   int       `json:"explicit_max_ttl"`
+	ID               string    `json:"id"`
+	IdentityPolicies []string  `json:"identity_policies"`
+	IssueTime        string    `json:"issue_time"`
 	Meta             struct {
 		Username string `json:"username"`
 	} `json:"meta"`
@@ -62,6 +62,20 @@ func (c *Client) LookupToken(ctx context.Context, token cfg.SecretData) (*Lookup
 		Data LookupTokenResponse
 	}
 	err := c.doRequest(ctx, http.MethodPost, "auth/token/lookup", req, &resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return &resp.Data, nil
+}
+
+// LookupCurrentToken lookups the current active token (self) and returns information
+// about it.
+func (c *Client) LookupCurrentToken(ctx context.Context) (*LookupTokenResponse, error) {
+	var resp struct {
+		Data LookupTokenResponse
+	}
+	err := c.doRequest(ctx, http.MethodPost, "auth/token/lookup-self", nil, &resp)
 	if err != nil {
 		return nil, err
 	}

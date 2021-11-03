@@ -2,6 +2,9 @@
   // Please consider contributing back all added
   // settings to bootstrap!
   ///Block(settings)
+  "go.toolsEnvVars": {
+    "CGO_ENABLED": 0
+  },
   ///EndBlock(settings)
   "go.lintTool": "golangci-lint",
   "go.lintFlags": [],

@@ -3,6 +3,8 @@ reportingTeam: cia-dev-tooling
 description: Go Client for Vault
 slack: dev-tooling-notifications
 library: true
+oss: true
 lintroller: platinum
 versions:
+  # Go 1.17.1 isn't fully supported yet.
   go: 1.16.9
