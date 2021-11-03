@@ -54,6 +54,13 @@ func WithTokenAuth(token cfg.SecretData) Opts {
 	}
 }
 
+// WithTokenFileAuth sets up token file auth on a Client
+func WithTokenFileAuth(path *string) Opts {
+	return func(opts *Options) {
+		opts.am = NewTokenFileAuthMethod(path)
+	}
+}
+
 // WithAddress sets the host to use when talking to Vault on a Client
 func WithAddress(hostname string) Opts {
 	return func(opts *Options) {
