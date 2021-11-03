@@ -7,17 +7,16 @@ import (
 	"context"
 	"net/http"
 	"path"
-	"time"
 )
 
 // KV2Secret is a secret from a KV2 engine
 type KV2Secret struct {
 	Metadata struct {
 		// CreatedTime is when this secret was created
-		CreatedTime time.Time `json:"created_time"`
+		CreatedTime string `json:"created_time"`
 
 		// DeletionTime is when this secret was destroyed
-		DeletionTime time.Time `json:"deletion_time"`
+		DeletionTime string `json:"deletion_time"`
 
 		// Destroyed denotes if this secret was destroyed or not
 		Destroyed bool `json:"destroyed"`
