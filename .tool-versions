@@ -1,5 +1,7 @@
 golang 1.16.9
 terraform 0.13.5
+protoc 3.19.1
+ruby 2.6.6
 # Note: This version of node is just for bootstrap tooling
 # not for actual usage of node clients (if they exist) for
 # this service.
