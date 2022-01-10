@@ -13,7 +13,7 @@ require (
 	github.com/hashicorp/vault v1.8.4
 	github.com/hashicorp/vault/sdk v0.2.2-0.20211005222123-93e045565e4a
 	github.com/imdario/mergo v0.3.12
-	github.com/mitchellh/mapstructure v1.4.1
+	github.com/mitchellh/mapstructure v1.4.3
 	github.com/moby/term v0.0.0-20210610120745-9d4ed1856297 // indirect
 	github.com/pkg/errors v0.9.1
 	go.etcd.io/bbolt v1.3.6 // indirect
