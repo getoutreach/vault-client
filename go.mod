@@ -8,7 +8,7 @@ require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/aws/aws-sdk-go v1.38.24 // indirect
 	github.com/getoutreach/gobox v1.29.0
-	github.com/google/go-cmp v0.5.6
+	github.com/google/go-cmp v0.5.7
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/hashicorp/vault v1.8.4
 	github.com/hashicorp/vault/sdk v0.2.2-0.20211005222123-93e045565e4a
