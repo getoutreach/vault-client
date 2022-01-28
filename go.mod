@@ -10,8 +10,8 @@ require (
 	github.com/getoutreach/gobox v1.29.0
 	github.com/google/go-cmp v0.5.7
 	github.com/google/gofuzz v1.2.0 // indirect
-	github.com/hashicorp/vault v1.8.4
-	github.com/hashicorp/vault/sdk v0.2.2-0.20211005222123-93e045565e4a
+	github.com/hashicorp/vault v1.8.5
+	github.com/hashicorp/vault/sdk v0.2.2-0.20211101151547-6654f4b913f9
 	github.com/imdario/mergo v0.3.12
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/moby/term v0.0.0-20210610120745-9d4ed1856297 // indirect
