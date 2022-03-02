@@ -22,7 +22,7 @@ service:
     - key: repo
       value: vault-client
     - key: reporting_team
-      value: cia-dev-tooling
+      value: fnd-dtss
     - key: app
       value: vault-client
     - key: name
