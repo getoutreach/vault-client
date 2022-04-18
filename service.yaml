@@ -1,10 +1,42 @@
 name: vault-client
 reportingTeam: fnd-dtss
 description: Go Client for Vault
+oss: true
 slack: dev-tooling-notifications
 library: true
-oss: true
+circleAPIKey: ""
 lintroller: platinum
-versions:
-  # Go 1.17.1 isn't fully supported yet.
-  go: 1.16.9
+releaseType: ""
+deployTo:
+  environments: []
+arguments:
+  circleAPIKey: ""
+  commands: []
+  dependencies:
+    optional: []
+    required: []
+  description: Go Client for Vault
+  grpcClients: []
+  opslevel:
+    confluenceSpaceKey: ""
+    datadogDashboards:
+      mainLink: ""
+    designDocumentLink: ""
+  oss: true
+  releaseOptions:
+    allowMajorVersions: null
+    enablePrereleases: false
+  reportingTeam: fnd-dtss
+  type:
+    - library
+modules:
+  - name: github.com/getoutreach/stencil-base
+opsLevel:
+  serviceTier: 0
+  lifecycle: ""
+  confluenceSpaceKey: ""
+  pagerDutyLink: ""
+  datadogDashboards:
+    mainLink: ""
+    custom: []
+  designDocumentLink: ""
