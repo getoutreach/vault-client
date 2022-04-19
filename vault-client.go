@@ -9,7 +9,6 @@ import (
 	"encoding/json" // Client is a Vault client
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"path"
 
@@ -92,7 +91,7 @@ func (c *Client) doRequest(ctx context.Context, method, endpoint string, body, r
 	// we're in error territory, read the entire body and try to parse for errors. If nothing is there, then just
 	// try to parse the response as normal json and trust the caller know's what it is doing
 	if !(r.StatusCode >= 200 && r.StatusCode < 400) {
-		b, err := ioutil.ReadAll(r.Body)
+		b, err := io.ReadAll(r.Body)
 		if err != nil {
 			return errors.Wrap(err, "failed to read response")
 		}

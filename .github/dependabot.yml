@@ -4,6 +4,9 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    # Bootstrap managed dependencies
+    ignore:
+      - dependency-name: github.com/getoutreach/gobox
 
   # Ignore semantic-release, this code is only executed in CI.
   - package-ecosystem: "npm"
