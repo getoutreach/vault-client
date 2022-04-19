@@ -29,7 +29,7 @@ func TestNewTokenFileAuthMethod(t *testing.T) {
 	}
 	defer os.Remove(f.Name())
 
-	if _, err = f.Write([]byte(rootToken)); err != nil {
+	if _, err = f.WriteString(string(rootToken)); err != nil {
 		t.Errorf("Failed to write to temp file for root-token: f.Write() = %v", err)
 		return
 	}
@@ -67,7 +67,7 @@ func TestNewTokenFileAuthMethodReturnsDefault(t *testing.T) {
 	if err != nil && errors.Is(err, os.ErrNotExist) {
 		// if we don't have one then we should create one
 		currentTokenContents = []byte("abcdefg")
-		if err := os.WriteFile(tokenPath, currentTokenContents, 0600); err != nil {
+		if err := os.WriteFile(tokenPath, currentTokenContents, 0o600); err != nil {
 			t.Errorf("Failed to write user's vault-token: os.WriteFile() = %v", err)
 			return
 		}
