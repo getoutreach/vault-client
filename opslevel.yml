@@ -1,24 +1,27 @@
 # yaml-language-server: $schema=https://www.opslevel.com/opslevel.schema.yml
+
+# Available options are listed here: https://app.opslevel.com/account
+# To find the alias for a given lifecycle: https://www.opslevel.com/docs/api/opslevel-yml/#finding-the-alias-for-a-lifecycle
+# To find the alias for a given tier: https://www.opslevel.com/docs/api/opslevel-yml/#finding-the-alias-for-a-tier
+# More examples: https://opslevel.com/docs/api/opslevel-yml/#example-service-opslevelyml
+
 version: 1
 service:
   name: vault-client
-  ###Block(serviceMetadata)
-  lifecycle: in_development
-  tier: tier_2
-  tools:
-    - name: PagerDuty
-      category: incidents
-      url: https://outreach.pagerduty.com/schedules#PGX9KZV
-      environment: Production
-  ###EndBlock(serviceMetadata)
   product: Outreach
   owner: fnd_dtss
   language: Golang
   framework: bootstrap
   description: Go Client for Vault
+  ###Block(extraServiceMetadata)
+  ###EndBlock(extraServiceMetadata)
   aliases:
+    ###Block(extraAliases)
+    ###EndBlock(extraAliases)
     - vault-client
   tags:
+    ###Block(extraTags)
+    ###EndBlock(extraTags)
     - key: repo
       value: vault-client
     - key: reporting_team
@@ -27,8 +30,10 @@ service:
       value: vault-client
     - key: name
       value: vault-client
-    - key: simple
-      value: "true"
+    - key: bootstrap_version
+      value: "v9.37.0-rc.10-15-ge2aa25e"
+    - key: golang_version
+      value: "1.17.9"
     - key: library
       value: "true"
   repositories:
