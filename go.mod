@@ -5,8 +5,8 @@ go 1.17
 require (
 	github.com/getoutreach/gobox v1.37.0
 	github.com/google/go-cmp v0.5.7
-	github.com/hashicorp/vault v1.10.0
-	github.com/hashicorp/vault/sdk v0.4.2-0.20220321211954-d7083ad326db
+	github.com/hashicorp/vault v1.10.2
+	github.com/hashicorp/vault/sdk v0.4.2-0.20220422204215-a7cef09c9429
 	github.com/imdario/mergo v0.3.12
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/pkg/errors v0.9.1
@@ -90,10 +90,10 @@ require (
 	github.com/hashicorp/go-raftchunking v0.6.3-0.20191002164813-7e9e8525653a // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.0 // indirect
 	github.com/hashicorp/go-rootcerts v1.0.2 // indirect
-	github.com/hashicorp/go-secure-stdlib/awsutil v0.1.5 // indirect
+	github.com/hashicorp/go-secure-stdlib/awsutil v0.1.6 // indirect
 	github.com/hashicorp/go-secure-stdlib/base62 v0.1.2 // indirect
 	github.com/hashicorp/go-secure-stdlib/mlock v0.1.2 // indirect
-	github.com/hashicorp/go-secure-stdlib/parseutil v0.1.3 // indirect
+	github.com/hashicorp/go-secure-stdlib/parseutil v0.1.4 // indirect
 	github.com/hashicorp/go-secure-stdlib/reloadutil v0.1.1 // indirect
 	github.com/hashicorp/go-secure-stdlib/strutil v0.1.2 // indirect
 	github.com/hashicorp/go-secure-stdlib/tlsutil v0.1.1 // indirect
@@ -106,7 +106,7 @@ require (
 	github.com/hashicorp/raft v1.3.3 // indirect
 	github.com/hashicorp/raft-autopilot v0.1.3 // indirect
 	github.com/hashicorp/raft-boltdb/v2 v2.0.0-20210421194847-a7e34179d62c // indirect
-	github.com/hashicorp/raft-snapshot v1.0.3 // indirect
+	github.com/hashicorp/raft-snapshot v1.0.4 // indirect
 	github.com/hashicorp/vault/api v1.4.1 // indirect
 	github.com/hashicorp/vic v1.5.1-0.20190403131502-bbfe86ec9443 // indirect
 	github.com/hashicorp/yamux v0.0.0-20211028200310-0bc27b27de87 // indirect
