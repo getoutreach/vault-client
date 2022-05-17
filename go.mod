@@ -3,7 +3,7 @@ module github.com/getoutreach/vault-client
 go 1.17
 
 require (
-	github.com/getoutreach/gobox v1.37.0
+	github.com/getoutreach/gobox v1.38.0
 	github.com/google/go-cmp v0.5.7
 	github.com/hashicorp/vault v1.10.0
 	github.com/hashicorp/vault/sdk v0.4.2-0.20220321211954-d7083ad326db
