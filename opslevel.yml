@@ -1,35 +1,52 @@
 # yaml-language-server: $schema=https://www.opslevel.com/opslevel.schema.yml
+
+# Available options are listed here: https://app.opslevel.com/account
+# To find the alias for a given lifecycle: https://www.opslevel.com/docs/api/opslevel-yml/#finding-the-alias-for-a-lifecycle
+# To find the alias for a given tier: https://www.opslevel.com/docs/api/opslevel-yml/#finding-the-alias-for-a-tier
+# More examples: https://opslevel.com/docs/api/opslevel-yml/#example-service-opslevelyml
+
 version: 1
 service:
   name: vault-client
-  ###Block(serviceMetadata)
-  lifecycle: in_development
-  tier: tier_2
-  tools:
-    - name: PagerDuty
-      category: incidents
-      url: https://outreach.pagerduty.com/schedules#PGX9KZV
-      environment: Production
-  ###EndBlock(serviceMetadata)
   product: Outreach
   owner: fnd_dtss
   language: Golang
-  framework: bootstrap
-  description: Go Client for Vault
+  framework: stencil
+  description: >
+    Go Client for Vault
+  ###Block(extraServiceMetadata)
+  ###EndBlock(extraServiceMetadata)
   aliases:
+    ###Block(extraAliases)
+
+    ###EndBlock(extraAliases)
     - vault-client
   tags:
+    ###Block(extraTags)
+
+    ###EndBlock(extraTags)
     - key: repo
-      value: vault-client
+      value: "https://github.com/getoutreach/vault-client"
     - key: reporting_team
-      value: fnd-dtss
+      value: "fnd-dtss"
     - key: app
-      value: vault-client
+      value: "vault-client"
     - key: name
-      value: vault-client
-    - key: simple
-      value: "true"
-    - key: library
+      value: "vault-client"
+    - key: stencil_version
+      value: "v1.15.0"
+    - key: golang_version
+      value: "1.17.9"
+    - key: tutorial
+      value: "false"
+    - key: cli
+      value: "false"
+    - key: service
+      value: "false"
+      # This is necessary for filters in OpsLevel because we have to assume all things are
+      # services if they don't have the `servce` tag. So we can gaurantee this tag for
+      # bootstrapped CLIs/Libraries.
+    - key: notservice
       value: "true"
   repositories:
     - name: getoutreach/vault-client

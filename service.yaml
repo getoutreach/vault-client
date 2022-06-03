@@ -17,6 +17,9 @@ arguments:
     required: []
   description: Go Client for Vault
   grpcClients: []
+  kubernetes:
+    groups: []
+  lintroller: platinum
   opslevel:
     confluenceSpaceKey: ""
     datadogDashboards:
@@ -27,10 +30,17 @@ arguments:
     allowMajorVersions: null
     enablePrereleases: false
   reportingTeam: fnd-dtss
-  type:
-    - library
+  service: false
+  tutorial: false
+  vaultSecrets:
+    - deploy/honeycomb_new/%(environment)s/honeycomb
+    - deploy/launchdarkly/%(environment)s/launchdarkly
+    - deploy/mint/%(environment)s/validation/mint-validator-payload
+    - deploy/flagship-shared-secret/%(environment)s/authn-flagship-payload
 modules:
   - name: github.com/getoutreach/stencil-base
+  - name: github.com/getoutreach/stencil-golang
+  - name: github.com/getoutreach/stencil-opslevel
 opsLevel:
   serviceTier: 0
   lifecycle: ""
