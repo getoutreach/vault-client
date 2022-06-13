@@ -5,8 +5,8 @@ go 1.17
 require (
 	github.com/getoutreach/gobox v1.38.0
 	github.com/google/go-cmp v0.5.8
-	github.com/hashicorp/vault v1.10.3
-	github.com/hashicorp/vault/sdk v0.4.2-0.20220429220057-bdb59a36e632
+	github.com/hashicorp/vault v1.10.4
+	github.com/hashicorp/vault/sdk v0.4.2-0.20220513130519-057103fba822
 	github.com/imdario/mergo v0.3.13
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pkg/errors v0.9.1
@@ -103,11 +103,11 @@ require (
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.1-vault-3 // indirect
 	github.com/hashicorp/mdns v1.0.4 // indirect
-	github.com/hashicorp/raft v1.3.3 // indirect
+	github.com/hashicorp/raft v1.3.9 // indirect
 	github.com/hashicorp/raft-autopilot v0.1.3 // indirect
 	github.com/hashicorp/raft-boltdb/v2 v2.0.0-20210421194847-a7e34179d62c // indirect
 	github.com/hashicorp/raft-snapshot v1.0.4 // indirect
-	github.com/hashicorp/vault/api v1.4.1 // indirect
+	github.com/hashicorp/vault/api v1.5.0 // indirect
 	github.com/hashicorp/vic v1.5.1-0.20190403131502-bbfe86ec9443 // indirect
 	github.com/hashicorp/yamux v0.0.0-20211028200310-0bc27b27de87 // indirect
 	github.com/honeycombio/beeline-go v1.4.1 // indirect
