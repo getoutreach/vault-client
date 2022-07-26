@@ -3,7 +3,7 @@ module github.com/getoutreach/vault-client
 go 1.17
 
 require (
-	github.com/getoutreach/gobox v1.38.0
+	github.com/getoutreach/gobox v1.41.5
 	github.com/google/go-cmp v0.5.8
 	github.com/hashicorp/vault v1.10.3
 	github.com/hashicorp/vault/sdk v0.4.2-0.20220429220057-bdb59a36e632
@@ -28,6 +28,7 @@ require (
 	github.com/Azure/go-autorest/logger v0.2.1 // indirect
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
 	github.com/Azure/go-ntlmssp v0.0.0-20211209120228-48547f28849e // indirect
+	github.com/BurntSushi/toml v1.1.0 // indirect
 	github.com/DataDog/datadog-go v3.7.1+incompatible // indirect
 	github.com/Jeffail/gabs v1.1.1 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
@@ -189,7 +190,7 @@ require (
 	gopkg.in/resty.v1 v1.12.0 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/api v0.22.4 // indirect
 	k8s.io/apimachinery v0.22.4 // indirect
 	k8s.io/client-go v0.22.4 // indirect
