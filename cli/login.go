@@ -1,7 +1,7 @@
 // Copyright 2021 Outreach Corporation. All Rights Reserved.
 //
 // Description: Stores functions to ensure that the user is logged into vault
-package vault_client //nolint:revive // Why: We're using - in the name
+package cli //nolint:revive // Why: We're using - in the name
 import (
 	"context"
 	"os"
