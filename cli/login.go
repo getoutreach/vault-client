@@ -1,4 +1,4 @@
-// Copyright 2021 Outreach Corporation. All Rights Reserved.
+// Copyright 2022 Outreach Corporation. All Rights Reserved.
 //
 // Description: Stores functions to ensure that the user is logged into vault
 package cli //nolint:revive // Why: We're using - in the name
