@@ -7,7 +7,9 @@ package cipher
 import (
 	"context"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/getoutreach/gobox/pkg/cfg"
 	"github.com/getoutreach/services/pkg/vault"
@@ -138,4 +140,53 @@ func (v *Vault) Decrypt(_ context.Context, orgID string, in []byte) ([]byte, err
 	}
 
 	return out, nil
+}
+
+// batchDecryptSerialize takes in data meant to be sent to Vault to be decrypted and
+// serializes it into a format that Vault is expecting.
+func (*Vault) batchDecryptSerialize(in []byte) map[string]interface{} {
+	return map[string]interface{}{
+		"batch_input": string(in),
+	}
+}
+
+// BatchDecrypt takes in an array of cyphertext data to be decrypted and returns the corresponding
+// array of plaintext
+func (v *Vault) BatchDecrypt(_ context.Context, orgID string, in []string) ([][]byte, error) {
+	desiredInput := make([]map[string]string, 0, len(in))
+	for _, v := range in {
+		desiredInput = append(desiredInput, map[string]string{"ciphertext": v})
+	}
+	desiredInputJSON, err := json.Marshal(desiredInput)
+	if err != nil {
+		return nil, errors.Wrap(err, "json encoding of slice")
+	}
+
+	res, err := v.client.Logical().Write(v.decryptPath(orgID), v.batchDecryptSerialize(desiredInputJSON))
+	if err != nil {
+		return nil, errors.Wrap(err, "do vault batch decryption")
+	}
+
+	raw, exists := res.Data["batch_results"]
+	if !exists {
+		return nil, errors.New("invalid response body format from vault")
+	}
+	
+	b64Map, ok := raw.([]string)
+	if !ok {
+		return nil, errors.New("invalid map of plaintext: base64 value format from vault")
+	}
+
+	outList := make([][]byte, 0, len(in))
+	for _, kvPair := range b64Map{
+		split := strings.Split(kvPair, ":")
+		b64value := split[1]
+		out, err := base64.StdEncoding.DecodeString(b64value)
+		if err != nil {
+			return nil, errors.Wrap(err, "base64 decode plaintext")
+		}
+		outList = append(outList, out)
+	}
+
+	return outList, nil
 }
