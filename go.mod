@@ -64,7 +64,7 @@ require (
 	github.com/evanphx/json-patch/v5 v5.6.0 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/felixge/httpsnoop v1.0.2 // indirect
-	github.com/getoutreach/httpx v1.14.1 // indirect
+	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/go-git/gcfg v1.5.0 // indirect
 	github.com/go-git/go-billy/v5 v5.3.1 // indirect
 	github.com/go-git/go-git/v5 v5.4.2 // indirect
@@ -233,9 +233,8 @@ require (
 replace k8s.io/klog/v2 => k8s.io/klog/v2 v2.60.1
 
 require (
-	github.com/getoutreach/services v1.100.0
 	github.com/hashicorp/go-secure-stdlib/awsutil v0.1.6 // indirect
-	github.com/hashicorp/vault/api v1.7.2
+	github.com/hashicorp/vault/api v1.7.2 // indirect
 	github.com/klauspost/compress v1.15.1 // indirect
 	github.com/lib/pq v1.10.3 // indirect
 	github.com/tencentcloud/tencentcloud-sdk-go v3.0.83+incompatible // indirect
