@@ -31,11 +31,41 @@ arguments:
     designDocumentLink: ""
   oss: true
   releaseOptions:
-    allowMajorVersions: null
+    allowMajorVersions: false
     enablePrereleases: false
   reportingTeam: fnd-star
   resources: {}
   service: false
+  slack: star-notifications
+  terraform:
+    datadog:
+      grpc:
+        evaluationWindow: ""
+        latency:
+          percentiles:
+            highTraffic: 0
+            lowTraffic: 0
+          thresholds:
+            highTraffic: 0
+            lowTraffic: 0
+        lowTrafficCountThreshold: 0
+        qos:
+          thresholds:
+            highTraffic: 0
+            lowTraffic: 0
+        tags: []
+      http:
+        evaluationWindow: ""
+        percentiles:
+          highTraffic: 0
+          lowTraffic: 0
+        thresholds:
+          highTraffic: 0
+          lowCount: 0
+          lowTraffic: 0
+      pods:
+        thresholds:
+          availableLowCount: 0
   tracing: honeycomb
   tutorial: false
   vaultSecrets:
@@ -44,12 +74,11 @@ arguments:
     - deploy/mint/%(environment)s/validation/mint-validator-payload
     - deploy/flagship-shared-secret/%(environment)s/authn-flagship-payload
 modules:
-  - name: github.com/getoutreach/stencil-base
-  - name: github.com/getoutreach/stencil-golang
-  - name: github.com/getoutreach/stencil-opslevel
   - name: github.com/getoutreach/stencil-outreach
   - name: github.com/getoutreach/stencil-circleci
   - name: github.com/getoutreach/stencil-actions
+  - name: github.com/getoutreach/stencil-base
+  - name: github.com/getoutreach/stencil-golang
 opsLevel:
   serviceTier: 0
   lifecycle: ""
