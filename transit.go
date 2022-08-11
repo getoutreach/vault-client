@@ -52,14 +52,6 @@ func (*Client) transitDecryptPath(key string) string {
 	return fmt.Sprintf("transit/decrypt/%s", key)
 }
 
-// decryptSerialize takes in data meant to be sent to Vault to be decrypted and
-// serializes it into a format that Vault is expecting.
-func (*Client) decryptSerialize(in []byte) map[string]interface{} {
-	return map[string]interface{}{
-		"ciphertext": string(in),
-	}
-}
-
 // transitDecryptPayload is the request body for the path that TransitDecrypt invokes.
 type transitDecryptPayload struct {
 	Ciphertext string `json:"ciphertext"`
@@ -90,14 +82,6 @@ func (c *Client) TransitDecrypt(ctx context.Context, key string, in []byte) ([]b
 	}
 
 	return out, nil
-}
-
-// batchDecryptSerialize takes in data meant to be sent to Vault to be decrypted and
-// serializes it into a format that Vault is expecting.
-func (*Client) batchDecryptSerialize(in []byte) map[string]interface{} {
-	return map[string]interface{}{
-		"batch_input": string(in),
-	}
 }
 
 // transitBatchDecryptPayload is the request body for the path that TransitBatchDecrypt invokes.
