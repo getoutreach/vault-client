@@ -29,15 +29,15 @@ type KV2Secret struct {
 	Data map[string]interface{} `json:"data"`
 }
 
-//underlyingKV2SecretResponse is the raw response from vault
+// underlyingKV2SecretResponse is the raw response from vault
 type underlyingKV2SecretResponse struct {
 	Data KV2Secret `json:"data"`
 }
 
 // GetKV2Secret returns a KV2 Secret.
 //
-//  // To get the path `deploy/my/cool/secret`
-//  c.GetKV2Secret("deploy", "my/cool/secret")
+//	// To get the path `deploy/my/cool/secret`
+//	c.GetKV2Secret("deploy", "my/cool/secret")
 func (c *Client) GetKV2Secret(ctx context.Context, engine, keyPath string) (*KV2Secret, error) {
 	var resp underlyingKV2SecretResponse
 	err := c.doRequest(ctx, http.MethodGet, path.Join(engine, "data", keyPath), nil, &resp)
