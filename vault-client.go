@@ -26,7 +26,8 @@ type Client struct {
 
 // New creates a new Vault client. By default it is non-functional. Most likely
 // it will be consumed like so:
-//  vault_client.New(vault_client.WithEnv)
+//
+//	vault_client.New(vault_client.WithEnv)
 func New(optFns ...Opts) *Client {
 	opts := &Options{}
 	for _, optFn := range optFns {
@@ -53,6 +54,7 @@ type ErrorResponse struct {
 }
 
 // doRequest sends a request
+//
 //nolint:funlen // Why: not that important to break out
 func (c *Client) doRequest(ctx context.Context, method, endpoint string, body, resp interface{}) error {
 	uri := c.opts.Host + path.Join("/v1/", endpoint)

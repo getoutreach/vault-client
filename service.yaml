@@ -1,17 +1,7 @@
 name: vault-client
-reportingTeam: fnd-star
-description: Go Client for Vault
-oss: true
-slack: star-notifications
-library: true
-circleAPIKey: ""
-lintroller: platinum
-tracing: honeycomb
-metrics: datadog
-releaseType: ""
-deployTo:
-  environments: []
 arguments:
+  coverage:
+    provider: codecov
   circleAPIKey: ""
   commands: []
   commitGuard: false
@@ -19,6 +9,7 @@ arguments:
     optional: []
     required: []
   description: Go Client for Vault
+  go-protoc-imports: []
   grpcClients: []
   kubernetes:
     groups: []
@@ -33,6 +24,7 @@ arguments:
   releaseOptions:
     allowMajorVersions: false
     enablePrereleases: false
+    prereleasesBranch: ""
   reportingTeam: fnd-star
   resources: {}
   service: false
@@ -66,8 +58,9 @@ arguments:
       pods:
         thresholds:
           availableLowCount: 0
-  tracing: honeycomb
+  tracing: opentelemetry
   tutorial: false
+  validation: false
   vaultSecrets:
     - deploy/honeycomb_new/%(environment)s/honeycomb
     - deploy/launchdarkly/%(environment)s/launchdarkly
@@ -76,15 +69,10 @@ arguments:
 modules:
   - name: github.com/getoutreach/stencil-outreach
   - name: github.com/getoutreach/stencil-circleci
+    channel: rc
   - name: github.com/getoutreach/stencil-actions
+  - name: github.com/getoutreach/stencil-discovery
   - name: github.com/getoutreach/stencil-base
+    channel: rc
   - name: github.com/getoutreach/stencil-golang
-opsLevel:
-  serviceTier: 0
-  lifecycle: ""
-  confluenceSpaceKey: STAR
-  pagerDutyLink: ""
-  datadogDashboards:
-    mainLink: ""
-    custom: []
-  designDocumentLink: ""
+migrated: true
