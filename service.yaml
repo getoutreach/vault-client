@@ -1,5 +1,7 @@
 name: vault-client
 arguments:
+  coverage:
+    provider: codecov
   circleAPIKey: ""
   commands: []
   commitGuard: false
@@ -67,8 +69,10 @@ arguments:
 modules:
   - name: github.com/getoutreach/stencil-outreach
   - name: github.com/getoutreach/stencil-circleci
+    channel: rc
   - name: github.com/getoutreach/stencil-actions
   - name: github.com/getoutreach/stencil-discovery
   - name: github.com/getoutreach/stencil-base
+    channel: rc
   - name: github.com/getoutreach/stencil-golang
 migrated: true
