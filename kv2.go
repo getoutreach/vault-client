@@ -57,3 +57,18 @@ func (c *Client) UpdateKV2Secret(ctx context.Context, engine, keyPath string,
 	secretData map[string]interface{}) error {
 	return c.CreateKV2Secret(ctx, engine, keyPath, secretData)
 }
+
+type underlyingKV2SecretListResponse struct {
+	Data struct {
+		Keys []string `json:"keys"`
+	}
+}
+
+// ListKV2Secrets lists all keys in a KV2 engine
+func (c *Client) ListKV2Secrets(ctx context.Context, engine, keyPath string) ([]string, error) {
+	var resp underlyingKV2SecretListResponse
+	if err := c.doRequest(ctx, "LIST", path.Join(engine, "metadata", keyPath), nil, &resp); err != nil {
+		return nil, err
+	}
+	return resp.Data.Keys, nil
+}
