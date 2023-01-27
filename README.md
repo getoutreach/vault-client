@@ -16,4 +16,6 @@ Please read the [CONTRIBUTING.md](CONTRIBUTING.md) document for guidelines on de
 
 <!-- <<Stencil::Block(overview)>> -->
 
+Go Client for Vault
+
 <!-- <</Stencil::Block>> -->

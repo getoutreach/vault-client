@@ -29,6 +29,9 @@ arguments:
   resources: {}
   service: false
   slack: star-notifications
+  ciOptions:
+    skipDocker: true
+    skipE2e: true
   terraform:
     datadog:
       grpc:

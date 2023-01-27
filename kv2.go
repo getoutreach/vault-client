@@ -58,6 +58,7 @@ func (c *Client) UpdateKV2Secret(ctx context.Context, engine, keyPath string,
 	return c.CreateKV2Secret(ctx, engine, keyPath, secretData)
 }
 
+// underlyingKV2SecretListResponse struct definition
 type underlyingKV2SecretListResponse struct {
 	Data struct {
 		Keys []string `json:"keys"`
