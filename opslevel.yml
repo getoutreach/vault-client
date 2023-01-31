@@ -15,7 +15,7 @@ service:
   description: >
     Go Client for Vault
   lifecycle: public_ga
-  tier: tier_0
+  tier: tier_2
   ## <<Stencil::Block(extraServiceMetadata)>>
 
   ## <</Stencil::Block>>

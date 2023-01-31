@@ -16,6 +16,7 @@ arguments:
   lintroller: platinum
   metrics: datadog
   opslevel:
+    tier: 2
     confluenceSpaceKey: STAR
     datadogDashboards:
       mainLink: ""
