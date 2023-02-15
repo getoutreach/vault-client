@@ -1,7 +1,5 @@
 name: vault-client
 arguments:
-  coverage:
-    provider: codecov
   circleAPIKey: ""
   commands: []
   commitGuard: false
