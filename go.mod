@@ -11,6 +11,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.8.1
+	gotest.tools/v3 v3.4.0
 )
 
 require (
@@ -19,7 +20,7 @@ require (
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/onsi/gomega v1.18.1 // indirect
 	golang.org/x/time v0.0.0-20220609170525-579cf78fd858 // indirect
-	k8s.io/client-go v0.23.1 // indirect
+	k8s.io/client-go v0.23.1
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
@@ -259,7 +260,6 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gotest.tools/v3 v3.4.0 // indirect
 	k8s.io/api v0.23.1 // indirect
 	k8s.io/apimachinery v0.24.0-alpha.3 // indirect
 	k8s.io/klog/v2 v2.60.1 // indirect
