@@ -33,7 +33,6 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) 
 		//nolint:gosec // Why: passing in the auth method and vault address
 		cmd := exec.CommandContext(ctx, "vault",
 			"login",
-			"-token-only",
 			"-format",
 			"json",
 			"-method",
