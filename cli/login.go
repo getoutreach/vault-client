@@ -27,7 +27,7 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) 
 		"json",
 		"-address",
 		b.DeveloperEnvironmentConfig.VaultConfig.Address).
-		CombinedOutput()
+		Output()
 	if err != nil {
 		// We did, so issue a new token using our authentication method
 		//nolint:gosec // Why: passing in the auth method and vault address
@@ -39,7 +39,7 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) 
 			b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod,
 			"-address", b.DeveloperEnvironmentConfig.VaultConfig.Address,
 		)
-		output, err = cmd.CombinedOutput()
+		output, err = cmd.Output()
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to run vault login")
 		}
