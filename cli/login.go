@@ -20,22 +20,25 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) 
 	// Check if we need to issue a new token
 	//nolint:gosec // Why: Passing in the vault address
 	output, err := exec.CommandContext(ctx,
+		"sh", "-c",
 		"vault",
 		"token",
 		"lookup",
 		"-format",
 		"json",
 		"-address",
+		"2>/dev/null",
 		b.DeveloperEnvironmentConfig.VaultConfig.Address).
 		Output()
 	if err != nil {
 		// We did, so issue a new token using our authentication method
 		//nolint:gosec // Why: passing in the auth method and vault address
-		cmd := exec.CommandContext(ctx, "vault",
+		cmd := exec.CommandContext(ctx, "sh", "-c", "vault",
 			"login",
 			"-format",
 			"json",
 			"-method",
+			"2>/dev/null",
 			b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod,
 			"-address", b.DeveloperEnvironmentConfig.VaultConfig.Address,
 		)
@@ -53,6 +56,7 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) 
 // cmdOutputToToken converts vault token lookup and vault token login output to
 // just the token id
 func cmdOutputToToken(in []byte) ([]byte, error) {
+
 	jp := jsonpath.New("vault-token")
 	if err := jp.Parse("{$.data.id}"); err != nil {
 		return nil, err
