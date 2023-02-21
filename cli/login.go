@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"os/exec"
 
 	"github.com/pkg/errors"
@@ -19,30 +20,16 @@ import (
 func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) ([]byte, error) {
 	// Check if we need to issue a new token
 	//nolint:gosec // Why: Passing in the vault address
-	output, err := exec.CommandContext(ctx,
-		"sh", "-c",
-		"vault",
-		"token",
-		"lookup",
-		"-format",
-		"json",
-		"-address",
-		"2>/dev/null",
-		b.DeveloperEnvironmentConfig.VaultConfig.Address).
-		Output()
+	output, err := exec.CommandContext(ctx, "sh", "-c",
+		fmt.Sprintf("vault token lookup -format json -address %s 2>/dev/null",
+			b.DeveloperEnvironmentConfig.VaultConfig.Address)).Output()
 	if err != nil {
 		// We did, so issue a new token using our authentication method
 		//nolint:gosec // Why: passing in the auth method and vault address
-		cmd := exec.CommandContext(ctx, "sh", "-c", "vault",
-			"login",
-			"-format",
-			"json",
-			"-method",
-			"2>/dev/null",
-			b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod,
-			"-address", b.DeveloperEnvironmentConfig.VaultConfig.Address,
-		)
-		output, err = cmd.Output()
+		output, err = exec.CommandContext(ctx, "sh", "-c",
+			fmt.Sprintf("vault login -format json -method  %s -address %s 2>/dev/null",
+				b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod,
+				b.DeveloperEnvironmentConfig.VaultConfig.Address)).Output()
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to run vault login")
 		}
@@ -56,7 +43,6 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) 
 // cmdOutputToToken converts vault token lookup and vault token login output to
 // just the token id
 func cmdOutputToToken(in []byte) ([]byte, error) {
-
 	jp := jsonpath.New("vault-token")
 	if err := jp.Parse("{$.data.id}"); err != nil {
 		return nil, err
