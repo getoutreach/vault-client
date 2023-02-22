@@ -27,24 +27,24 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) 
 		// We did, so issue a new token using our authentication method
 		//nolint:gosec // Why: passing in the auth method and vault address
 		output, err = exec.CommandContext(ctx, "sh", "-c",
-			fmt.Sprintf("vault login -format json -method  %s -address %s 2>/dev/null",
+			fmt.Sprintf("vault login -format json -method %s -address %s 2>/dev/null",
 				b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod,
 				b.DeveloperEnvironmentConfig.VaultConfig.Address)).Output()
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to run vault login")
 		}
-		token, err := cmdOutputToToken(output)
+		token, err := cmdOutputToToken(output, "{$.auth.client_token}")
 		return token, errors.Wrap(err, "vault output token jsonpath failed")
 	}
-	token, err := cmdOutputToToken(output)
+	token, err := cmdOutputToToken(output, "{$.data.id}")
 	return token, errors.Wrap(err, "vault output token jsonpath failed")
 }
 
 // cmdOutputToToken converts vault token lookup and vault token login output to
 // just the token id
-func cmdOutputToToken(in []byte) ([]byte, error) {
+func cmdOutputToToken(in []byte, expr string) ([]byte, error) {
 	jp := jsonpath.New("vault-token")
-	if err := jp.Parse("{$.data.id}"); err != nil {
+	if err := jp.Parse(expr); err != nil {
 		return nil, err
 	}
 	var data interface{}
