@@ -11,8 +11,13 @@ import (
 )
 
 func TestVaultLoginTokenJSONPath(t *testing.T) {
-	expectedTokenID := "s.gNhNGm524pfZDJzIOVk4NGaX"
-	input := []byte(fmt.Sprintf(`{
+	tests := map[string]struct {
+		input    string
+		expr     string
+		expected string
+	}{
+		"logged in lookup token test": {
+			input: `{
   "request_id": "676169b4-d7f9-d94d-ac94-a16891024d73",
   "lease_id": "",
   "lease_duration": 0,
@@ -45,8 +50,51 @@ func TestVaultLoginTokenJSONPath(t *testing.T) {
     "type": "service"
   },
   "warnings": null
-}`, expectedTokenID))
-	actual, err := cmdOutputToToken(input)
-	assert.NilError(t, err)
-	assert.Equal(t, expectedTokenID, string(actual))
+}`,
+			expr:     "{$.data.id}",
+			expected: "s.gNhNGm524pfZDJzIOVk4NGaX",
+		},
+		"not logged in test": {
+			input: `{
+  "request_id": "da34f027-defd-0d51-6721-3e3d7db3c694",
+  "lease_id": "",
+  "lease_duration": 0,
+  "renewable": false,
+  "data": null,
+  "warnings": null,
+  "auth": {
+    "client_token": "%s",
+    "accessor": "EKduk9KRRDPLDfbczgqJiWxe",
+    "policies": [
+      "default",
+      "dev-policy",
+      "root-policy"
+    ],
+    "token_policies": [
+      "default"
+    ],
+    "identity_policies": [
+      "dev-policy",
+      "root-policy"
+    ],
+    "metadata": {
+      "role": "outreach"
+    },
+    "orphan": true,
+    "entity_id": "697e1d36-03ea-86a3-927d-258b15e30adf",
+    "lease_duration": 43200,
+    "renewable": true,
+    "mfa_requirement": null
+  }
+}`,
+			expr:     "{$.auth.client_token}",
+			expected: "s.gNhNGm524pfZDJzIOVk4NGaX",
+		},
+	}
+	for name, test := range tests {
+		actual, err := cmdOutputToToken([]byte(fmt.Sprintf(test.input, test.expected)), test.expr)
+		assert.NilError(t, err, name)
+		assert.Equal(t, test.expected, string(actual), name)
+	}
+
 }
