@@ -6,7 +6,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"os/exec"
 	"strings"
 	"time"
@@ -26,11 +25,9 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) 
 		return nil, err
 	} else if token == nil {
 		// We did, so issue a new token using our authentication method
-		//nolint:gosec // Why: passing in the auth method and vault address
-		output, err := exec.CommandContext(ctx, "sh", "-c",
-			fmt.Sprintf("vault login -format json -method %s -address %s 2>/dev/null",
-				b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod,
-				b.DeveloperEnvironmentConfig.VaultConfig.Address)).Output()
+		//nolint:lll // Why: Passing in the vault address and method
+		args := []string{"login", "-format", "json", "-method", b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod, "-address", b.DeveloperEnvironmentConfig.VaultConfig.Address}
+		output, err := exec.CommandContext(ctx, "vault", args...).Output()
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to run vault login")
 		}
@@ -58,10 +55,8 @@ func cmdOutputToToken(in []byte, expr string) ([]byte, error) {
 
 // IsLoggedIn returns a valid token if auth lease is not expired
 func IsLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) ([]byte, error) {
-	//nolint:gosec // Why: Passing in the vault address
-	output, err := exec.CommandContext(ctx, "sh", "-c",
-		fmt.Sprintf("vault token lookup -format json -address %s",
-			b.DeveloperEnvironmentConfig.VaultConfig.Address)).CombinedOutput()
+	args := []string{"token", "lookup", "-format", "json", "-address", b.DeveloperEnvironmentConfig.VaultConfig.Address}
+	output, err := exec.CommandContext(ctx, "vault", args...).CombinedOutput()
 	if err != nil {
 		if strings.Contains(string(output), "permission denied") {
 			return nil, nil
