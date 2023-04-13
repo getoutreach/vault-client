@@ -96,5 +96,4 @@ func TestVaultLoginTokenJSONPath(t *testing.T) {
 		assert.NilError(t, err, name)
 		assert.Equal(t, test.expected, string(actual), name)
 	}
-
 }
