@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	// Temporary until we land the gobox release
-	github.com/getoutreach/gobox v1.71.2-0.20230705040446-2bafe0fe9b9c
+	github.com/getoutreach/gobox v1.72.0
 	github.com/google/go-cmp v0.5.9
 	github.com/hashicorp/vault v1.14.0
 	github.com/hashicorp/vault/sdk v0.9.2-0.20230530190758-08ee474850e0
