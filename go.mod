@@ -12,7 +12,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.0
-	gotest.tools/v3 v3.4.0
+	gotest.tools/v3 v3.5.0
 )
 
 require (
