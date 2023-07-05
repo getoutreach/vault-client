@@ -1,0 +1,24 @@
+# Docs: https://docs.cortex.io/docs/reference/basics/entities#service-entities
+
+openapi: 3.0.0
+info:
+  title: vault-client
+  description: >
+    Go Client for Vault
+  x-cortex-tag: vault-client
+  x-cortex-type: library
+  x-cortex-owners:
+    - type: group
+      name: fnd-star
+      provider: GITHUB
+  x-cortex-git:
+    github:
+      repository: getoutreach/vault-client
+  x-cortex-link:
+    - name: Runbook
+      type: RUNBOOK
+      url: https://github.com/getoutreach/vault-client/blob/main/documentation/runbook.md
+  x-cortex-custom-metadata:
+    stencil_version: "v1.35.0"
+    golang_version: "1.19.8"
+    lifecycle: public_ga
