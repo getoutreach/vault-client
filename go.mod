@@ -70,7 +70,7 @@ require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
-	k8s.io/client-go v0.27.2
+	k8s.io/client-go v0.27.3
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
@@ -266,8 +266,8 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.27.2 // indirect
-	k8s.io/apimachinery v0.27.2 // indirect
+	k8s.io/api v0.27.3 // indirect
+	k8s.io/apimachinery v0.27.3 // indirect
 	k8s.io/klog/v2 v2.90.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20230501164219-8b0f38b5fd1f // indirect
 	k8s.io/utils v0.0.0-20230220204549-a5ecb0141aa5 // indirect
