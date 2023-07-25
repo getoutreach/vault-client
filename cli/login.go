@@ -22,7 +22,7 @@ import (
 // returning the token and expiration date.
 func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config, minTimeRemaining time.Duration) ([]byte, time.Time, error) {
 	// Check if we need to issue a new token
-	refresh := false
+	var refresh bool
 	token, expiresAt, err := IsLoggedIn(ctx, log, b)
 	if err != nil {
 		return nil, time.Time{}, err
