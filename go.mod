@@ -7,7 +7,7 @@ require (
 	github.com/getoutreach/gobox v1.72.0
 	github.com/google/go-cmp v0.5.9
 	github.com/hashicorp/vault v1.14.0
-	github.com/hashicorp/vault/sdk v0.9.2-0.20230530190758-08ee474850e0
+	github.com/hashicorp/vault/sdk v0.9.2
 	github.com/imdario/mergo v0.3.15
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pkg/errors v0.9.1
