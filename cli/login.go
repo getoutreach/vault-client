@@ -40,12 +40,14 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config, 
 		// Issue a new token using our authentication method
 		//nolint:lll // Why: Passing in the vault address and method
 		args := []string{"login", "-format", "json", "-method", b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod, "-address", b.DeveloperEnvironmentConfig.VaultConfig.Address}
-		output, err := exec.CommandContext(ctx, "vault", args...).Output()
+		_, err := exec.CommandContext(ctx, "vault", args...).Output()
 		if err != nil {
 			return nil, time.Time{}, errors.Wrap(err, "failed to run vault login")
 		}
 
-		token, expiresAt, err = parseTokenOutput(output)
+		// The login above only returns a little info about the token, so re-request info about the token to get full
+		// info about expiry/validity.
+		token, expiresAt, err = IsLoggedIn(ctx, log, b)
 		if err != nil {
 			return nil, time.Time{}, errors.Wrap(err, "failed to parse token output")
 		}
