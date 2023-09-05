@@ -42,7 +42,12 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config, 
 		args := []string{"login", "-format", "json", "-method", b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod, "-address", b.DeveloperEnvironmentConfig.VaultConfig.Address}
 		_, err := exec.CommandContext(ctx, "vault", args...).Output()
 		if err != nil {
-			return nil, time.Time{}, errors.Wrap(err, "failed to run vault login")
+			var execErr *exec.ExitError
+			if errors.As(err, &execErr) {
+				return nil, time.Time{}, errors.Wrapf(err, "failed to run vault login: %s", execErr.Stderr)
+			}
+
+			return nil, time.Time{}, errors.Wrap(err, "failed to run vault login (no stderr)")
 		}
 
 		// The login above only returns a little info about the token, so re-request info about the token to get full
@@ -67,9 +72,10 @@ func cmdOutputToToken(in []byte, expr string) ([]byte, error) {
 	if err := json.Unmarshal(in, &data); err != nil {
 		return nil, err
 	}
-	buf := new(bytes.Buffer)
-	err := jp.Execute(buf, data)
-	return buf.Bytes(), errors.Wrap(err, "jsonpath failed")
+
+	var buf bytes.Buffer
+	err := jp.Execute(&buf, data)
+	return buf.Bytes(), errors.Wrapf(err, "failed to execute jsonpath %q", expr)
 }
 
 // IsLoggedIn returns a valid token and expiration time if auth lease is not expired
@@ -80,12 +86,12 @@ func IsLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) ([]b
 		if strings.Contains(string(output), "permission denied") {
 			return nil, time.Time{}, nil
 		}
-		return nil, time.Time{}, errors.Wrap(err, "failed to lookup vault token")
+		return nil, time.Time{}, errors.Wrapf(err, "failed to lookup vault token: %s", output)
 	}
 
 	token, expireTime, err := parseTokenOutput(output)
 	if err != nil {
-		return nil, time.Time{}, errors.Wrap(err, "failed to parse token output")
+		return nil, time.Time{}, errors.Wrapf(err, "failed to parse token output: %s", output)
 	}
 
 	log.Infof("Token expires in %s (expire_time:%q)", time.Until(expireTime).Truncate(time.Second), expireTime)
