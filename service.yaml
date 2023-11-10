@@ -1,68 +1,14 @@
 name: vault-client
 arguments:
-  circleAPIKey: ""
-  commands: []
-  commitGuard: false
-  dependencies:
-    optional: []
-    required: []
   description: Go Client for Vault
-  go-protoc-imports: []
-  grpcClients: []
-  kubernetes:
-    groups: []
   lintroller: platinum
-  metrics: datadog
-  opslevel:
-    lifecycle: public_ga
-    confluenceSpaceKey: STAR
-    datadogDashboards:
-      mainLink: ""
-    designDocumentLink: ""
   oss: true
-  releaseOptions:
-    allowMajorVersions: false
-    enablePrereleases: false
-    prereleasesBranch: ""
   reportingTeam: fnd-star
-  resources: {}
   service: false
   slack: star-notifications
   ciOptions:
     skipDocker: true
     skipE2e: true
-  terraform:
-    datadog:
-      grpc:
-        evaluationWindow: ""
-        latency:
-          percentiles:
-            highTraffic: 0
-            lowTraffic: 0
-          thresholds:
-            highTraffic: 0
-            lowTraffic: 0
-        lowTrafficCountThreshold: 0
-        qos:
-          thresholds:
-            highTraffic: 0
-            lowTraffic: 0
-        tags: []
-      http:
-        evaluationWindow: ""
-        percentiles:
-          highTraffic: 0
-          lowTraffic: 0
-        thresholds:
-          highTraffic: 0
-          lowCount: 0
-          lowTraffic: 0
-      pods:
-        thresholds:
-          availableLowCount: 0
-  tracing: opentelemetry
-  tutorial: false
-  validation: false
   vaultSecrets:
     - deploy/honeycomb_new/%(environment)s/honeycomb
     - deploy/launchdarkly/%(environment)s/launchdarkly
@@ -70,13 +16,8 @@ arguments:
     - deploy/flagship-shared-secret/%(environment)s/authn-flagship-payload
 modules:
   - name: github.com/getoutreach/stencil-outreach
-    channel: rc
   - name: github.com/getoutreach/stencil-circleci
-    channel: rc
   - name: github.com/getoutreach/stencil-actions
   - name: github.com/getoutreach/stencil-discovery
   - name: github.com/getoutreach/stencil-base
-    channel: rc
   - name: github.com/getoutreach/stencil-golang
-    channel: rc
-migrated: true
