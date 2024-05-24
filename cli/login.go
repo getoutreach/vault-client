@@ -12,18 +12,26 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
 	"k8s.io/client-go/util/jsonpath"
-
-	"github.com/getoutreach/gobox/pkg/box"
 )
 
-// EnsureLoggedIn ensures that we are authenticated with Vault and have a valid token,
-// returning the token and expiration date.
-func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config, minTimeRemaining time.Duration) ([]byte, time.Time, error) {
+// const defines constants for the Vault CLI
+const (
+	// ProductionAddress is the vault address for the producton Vault server
+	ProductionAddress = "https://vault.outreach.cloud"
+
+	// DevelopmentAddress is the Vault address for the development Vault server
+	DevelopmentAddress = "https://vault-dev.outreach.cloud/"
+
+	// OidcAuthMethod for using the oidc authentication method to obtain a Vault token
+	OidcAuthMethod = "oidc"
+)
+
+// EnsureLoggedIn ensures that we are authenticated with Vault and have a valid token, returning the token and expiration date.
+func EnsureLoggedIn(ctx context.Context, vaultAddress, authMethod string, minTimeRemaining time.Duration) ([]byte, time.Time, error) {
 	// Check if we need to issue a new token
 	var refresh bool
-	token, expiresAt, err := IsLoggedIn(ctx, log, b)
+	token, expiresAt, err := IsLoggedIn(ctx, vaultAddress)
 	if err != nil {
 		return nil, time.Time{}, err
 	}
@@ -39,7 +47,7 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config, 
 	if refresh {
 		// Issue a new token using our authentication method
 		//nolint:lll // Why: Passing in the vault address and method
-		args := []string{"login", "-format", "json", "-method", b.DeveloperEnvironmentConfig.VaultConfig.AuthMethod, "-address", b.DeveloperEnvironmentConfig.VaultConfig.Address}
+		args := []string{"login", "-format", "json", "-method", authMethod, "-address", vaultAddress}
 		_, err := exec.CommandContext(ctx, "vault", args...).Output()
 		if err != nil {
 			var execErr *exec.ExitError
@@ -52,7 +60,7 @@ func EnsureLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config, 
 
 		// The login above only returns a little info about the token, so re-request info about the token to get full
 		// info about expiry/validity.
-		token, expiresAt, err = IsLoggedIn(ctx, log, b)
+		token, expiresAt, err = IsLoggedIn(ctx, vaultAddress)
 		if err != nil {
 			return nil, time.Time{}, errors.Wrap(err, "failed to parse token output")
 		}
@@ -78,9 +86,9 @@ func cmdOutputToToken(in []byte, expr string) ([]byte, error) {
 	return buf.Bytes(), errors.Wrapf(err, "failed to execute jsonpath %q", expr)
 }
 
-// IsLoggedIn returns a valid token and expiration time if auth lease is not expired
-func IsLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) ([]byte, time.Time, error) {
-	args := []string{"token", "lookup", "-format", "json", "-address", b.DeveloperEnvironmentConfig.VaultConfig.Address}
+// IsLoggedIn returns a valid token and expiration time if it is not expired
+func IsLoggedIn(ctx context.Context, vaultAddress string) ([]byte, time.Time, error) {
+	args := []string{"token", "lookup", "-format", "json", "-address", vaultAddress}
 	output, err := exec.CommandContext(ctx, "vault", args...).CombinedOutput()
 	if err != nil {
 		if strings.Contains(string(output), "permission denied") {
@@ -94,7 +102,7 @@ func IsLoggedIn(ctx context.Context, log logrus.FieldLogger, b *box.Config) ([]b
 		return nil, time.Time{}, errors.Wrapf(err, "failed to parse token output: %s", output)
 	}
 
-	log.Infof("Token expires in %s (expire_time:%q)", time.Until(expireTime).Truncate(time.Second), expireTime)
+	log.InfoContext(ctx, "Logged into Vault", "expires", expireTime, "address", vaultAddress)
 	return token, expireTime, nil
 }
 
