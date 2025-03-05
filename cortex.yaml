@@ -6,17 +6,9 @@ info:
   description: >
     Go Client for Vault
   x-cortex-type: service
-  x-cortex-slack:
-    channels:
-      - name: fnd-star-alerts
-        notificationsEnabled: true
-      - name: star-oncall
-        notificationsEnabled: false
-      - name: star-support
-        notificationsEnabled: false
   x-cortex-owners:
     - type: group
-      name: fnd-star
+      name: fnd-pc
       provider: CORTEX
   x-cortex-tag: vault-client
   x-cortex-git:
@@ -43,19 +35,19 @@ info:
     repo: https://github.com/getoutreach/vault-client
     framework: stencil
     language: Golang
-    stencil_version: v1.38.1
-    golang_version: 1.22.0
+    stencil_version: v1.40.1
+    golang_version: 1.23.4
     cli: false
     service: false
     product: Outreach
     lifecycle: in_development
     ## <<Stencil::Block(extraAliases)>>
     ## <</Stencil::Block>>
-    reporting_team: fnd-star
+    reporting_team: fnd-pc
     lintroller: platinum
   x-cortex-groups:
-    - lifecycle: in_development
-    - product: Outreach
-    - language: Golang
-    - framework: stencil
-    - engOrg: fnd
+    - lifecycle:in_development
+    - product:Outreach
+    - language:Golang
+    - framework:stencil
+    - engOrg:fnd
