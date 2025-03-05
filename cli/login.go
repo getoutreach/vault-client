@@ -21,7 +21,7 @@ const (
 	ProductionAddress = "https://vault.outreach.cloud"
 
 	// DevelopmentAddress is the Vault address for the development Vault server
-	DevelopmentAddress = "https://vault-dev.outreach.cloud/"
+	DevelopmentAddress = "https://vault-dev.outreach.cloud"
 
 	// OidcAuthMethod for using the oidc authentication method to obtain a Vault token
 	OidcAuthMethod = "oidc"
