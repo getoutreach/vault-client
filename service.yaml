@@ -3,7 +3,7 @@ arguments:
   description: Go Client for Vault
   lintroller: platinum
   oss: true
-  reportingTeam: fnd-star
+  reportingTeam: fnd-pc
   service: false
   slack: star-notifications
   ciOptions:
