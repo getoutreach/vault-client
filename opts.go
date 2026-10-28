@@ -5,6 +5,7 @@ package vault_client //nolint:revive // Why: We're using - in the name
 
 import (
 	"os" // Options is the options used by the New() client function
+	"strings"
 
 	"github.com/getoutreach/gobox/pkg/cfg"
 	"github.com/imdario/mergo"
@@ -61,10 +62,11 @@ func WithTokenFileAuth(path *string) Opts {
 	}
 }
 
-// WithAddress sets the host to use when talking to Vault on a Client
+// WithAddress sets the host to use when talking to Vault on a Client. A
+// trailing slash is dropped, as it would make requests for "//v1/...".
 func WithAddress(hostname string) Opts {
 	return func(opts *Options) {
-		opts.Host = hostname
+		opts.Host = strings.TrimRight(hostname, "/")
 	}
 }
 

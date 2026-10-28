@@ -25,3 +25,17 @@ func TestWithEnv(t *testing.T) {
 		t.Errorf("cmp.Diff = %s", diff)
 	}
 }
+
+func TestWithAddress_TrailingSlash(t *testing.T) {
+	for in, want := range map[string]string{
+		"https://vault.example.com":   "https://vault.example.com",
+		"https://vault.example.com/":  "https://vault.example.com",
+		"https://vault.example.com//": "https://vault.example.com",
+	} {
+		opts := &Options{}
+		WithAddress(in)(opts)
+		if opts.Host != want {
+			t.Errorf("WithAddress(%q).Host = %q, want %q", in, opts.Host, want)
+		}
+	}
+}
